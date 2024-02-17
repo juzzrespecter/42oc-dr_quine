@@ -1,3 +1,3 @@
 /* This is probably a comment */
 
-# define 
+# define MAIN(x) 
