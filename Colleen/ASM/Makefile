@@ -1,21 +1,43 @@
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re
 
-OBJ_DIR = obj
 SRC = Colleen.s
 
-OBJ = ${SRC:%.s=${OBJ_DIR}/%.o}
+OBJ_DIR = obj
+OBJ = ${patsubst %.s, $(OBJ_DIR)/%.o, ${SRC}}
 
-OS = ${shell uname -r}
+OS = ${shell uname -s}
 ifeq (${OS}, Darwin)
 	ASFLAGS = -f macho64
 else ifeq (${OS}, Linux)
-	ASFLAGS = -f elf
+	ASFLAGS = -f elf64 -g
 endif
+
+AS := nasm
+LD := ld
+#LDFLAGS := -lc
+
+RM = rm -rfv
 
 NAME = Colleen
 
 all: ${NAME}
 
-
 ${NAME}: ${OBJ}
+	${LD} ${LDFLAGS} $< -o $@ -lc
+
+${OBJ_DIR}/%.o: %.s | ${OBJ_DIR}
 	${AS} ${ASFLAGS} $< -o $@
+
+${OBJ_DIR}:
+	mkdir -pv $@
+
+clean:
+	${RM} ${NAME}
+
+fclean: clean
+	${RM} ${OBJ_DIR}
+
+re: fclean all
+
+
+.PHONY: all clean fclean re
