@@ -2,10 +2,12 @@
 SRC := Grace.c
 
 OBJ_DIR := obj/
-OBJ     := $(SRC:.c=$(OBJ_DIR).o)
+OBJ     := $(SRC:%.c=$(OBJ_DIR)%.o)
 
 C      := gcc
-CFLAGS :=
+CFLAGS := -Wall -Werror -Wextra
+MKDIR  := mkdir -pv
+RM     := rm -rfv
 
 NAME := Grace
 all: $(NAME)
@@ -13,10 +15,10 @@ all: $(NAME)
 $(NAME): $(OBJ)
 
 $(OBJ_DIR)%.o: %.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $< -c -o $@
 
 $(OBJ_DIR):
-	$(MKDIR) $<
+	$(MKDIR) $@
 
 clean:
 	$(RM) $(NAME)
