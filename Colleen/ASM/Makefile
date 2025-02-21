@@ -13,23 +13,24 @@ else ifeq (${OS}, Linux)
 endif
 
 AS := nasm
-LD := ld
-#LDFLAGS := -lc
+LD := cc
+#LDFLAGS := -lc --dynamic-linker /usr/lib64/ld-linux-x86-64.so.2
 
 RM = rm -rfv
+MKDIR = mkdir -pv
 
 NAME = Colleen
 
 all: ${NAME}
 
 ${NAME}: ${OBJ}
-	${LD} ${LDFLAGS} $< -o $@ -lc
+	${LD} $< -o $@ ${LDFLAGS}
 
 ${OBJ_DIR}/%.o: %.s | ${OBJ_DIR}
 	${AS} ${ASFLAGS} $< -o $@
 
 ${OBJ_DIR}:
-	mkdir -pv $@
+	${MKDIR} $@
 
 clean:
 	${RM} ${NAME}
@@ -38,6 +39,3 @@ fclean: clean
 	${RM} ${OBJ_DIR}
 
 re: fclean all
-
-
-.PHONY: all clean fclean re
