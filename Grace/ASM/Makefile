@@ -12,14 +12,16 @@ else ifeq (${OS}, Linux)
 endif
 
 AS := nasm
-LD := ld
-IFLAGS := -lc
+CC := gcc
+
+RM    := rm -rfv
+MKDIR := mkdir -pv
 
 NAME := Grace
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(LD) $< -o $@ $(IFLAGS)
+	$(CC) $< -o $@ $(IFLAGS)
 
 $(OBJ_DIR)%.o: %.s | $(OBJ_DIR)
 	$(AS) $(ASFLAGS) $< -o $@
