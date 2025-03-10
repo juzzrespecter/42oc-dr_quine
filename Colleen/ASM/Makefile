@@ -14,7 +14,6 @@ endif
 
 AS := nasm
 LD := cc
-#LDFLAGS := -lc --dynamic-linker /usr/lib64/ld-linux-x86-64.so.2
 
 RM = rm -rfv
 MKDIR = mkdir -pv
