@@ -6,9 +6,11 @@ NAME := Sully
 VENV := .venv
 
 CC := gcc
-IFLAGS := $(python3-config --includes)
-LDFLAGS := $(python3-config --ldflags --embed)
+IFLAGS := $(shell python3-config --includes)
+LDFLAGS := $(shell python3-config --ldflags --embed)
 RM := rm -rfv
+OUTPUT := Sully_5 Sully_4 Sully_3 Sully_2 Sully_1 Sully_0
+OUTPUT_SRC := $(addsuffix .py,$(OUTPUT))
 
 all: $(NAME)
 
@@ -24,7 +26,7 @@ $(VENV):
 	source $@/bin/activate
 
 clean:
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(OUTPUT) $(OUTPUT_SRC)
 
 fclean: clean
 	$(RM) $(VENV)

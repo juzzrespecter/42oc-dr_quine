@@ -27,5 +27,5 @@ if __name__ == "__main__":
             print(out, end='')
             print(len(file), file=sys.stderr)
         if type == 'py':
-            out = file.replace('\n','{nl}').replace("\'", '{sc}').replace('@', '{s}').replace('\"', '{dc}')
+            out = file.replace('\n','{nl}').replace("\'", '{sc}').replace('@', '{s}').replace('\"', '{dc}').replace('{','{lb}').replace('}','{rb}')
             print(out, end='')
