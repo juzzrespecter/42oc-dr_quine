@@ -1,3 +1,4 @@
+.ONESHELL:
 .PHONY: all clean fclean
 SRC  := Sully.py
 CSRC := Sully.c
@@ -10,7 +11,7 @@ IFLAGS := $(shell python3-config --includes)
 LDFLAGS := $(shell python3-config --ldflags --embed)
 RM := rm -rfv
 OUTPUT := Sully_5 Sully_4 Sully_3 Sully_2 Sully_1 Sully_0
-OUTPUT_SRC := $(addsuffix .py,$(OUTPUT))
+OUTPUT_SRC := $(addsuffix .py,$(OUTPUT)) $(NAME).c
 
 all: $(NAME)
 
@@ -30,3 +31,5 @@ clean:
 
 fclean: clean
 	$(RM) $(VENV)
+
+re: fclean all
