@@ -1,5 +1,5 @@
 import sys
-import os
+import re
 
 usage = """
 usage: ./interpreter.py [asm|c|py] [file]
@@ -27,5 +27,6 @@ if __name__ == "__main__":
             print(out, end='')
             print(len(file), file=sys.stderr)
         if type == 'py':
-            out = file.replace('\n','{nl}').replace("\'", '{sc}').replace('@', '{s}').replace('\"', '{dc}').replace('{','{lb}').replace('}','{rb}')
+            out = re.sub(r'\{([^}]*)\}',r'{lb}\1{rb}',file)
+            out = out.replace('\n','{nl}').replace("\'", '{sc}').replace('@', '{s}').replace('\"', '{dc}').replace("i = 5", "i = {i}")
             print(out, end='')
