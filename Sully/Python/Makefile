@@ -25,12 +25,12 @@ $(NAME): $(CSRC)
 	$(CC) -Os $(IFLAGS) $< -o $@ $(LDFLAGS)
 
 $(CSRC): $(SRC) | $(VENV)
+	source $(VENV)/bin/activate
 	NO_CYTHON_COMPILE=true pip install Cython
 	cython --embed $< -o $@
 
 $(VENV):
 	$(PYTHON) -m venv $@
-	source $@/bin/activate
 
 clean:
 	$(RM) $(NAME) $(OUTPUT) $(OUTPUT_SRC)
